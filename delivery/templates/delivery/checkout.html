@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checkout</title>
+</head>
+<body>
+    <h1>Checkout</h1>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <h3>Total Amount: ₹{{ total }}</h3>
+
+    <form method="post">
+    {% csrf_token %}
+
+    <label>Customer Name:</label>
+    <input type="text" name="customer_name" required>
+    <br><br>
+
+    <label>Phone Number:</label>
+    <input type="text" name="phone" required>
+    <br><br>
+
+    <label>Delivery Address:</label>
+    <textarea name="address" required></textarea>
+    <br><br>
+
+    <button type="submit">Place Order</button>
+</form>
+</body>
+</html>

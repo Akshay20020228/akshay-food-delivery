@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Cart - Akshay Food Delivery</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 700px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #ccc;
+        }
+
+        .food-image {
+            width: 150px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .details {
+            flex: 1;
+        }
+
+        .total {
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            margin: 30px;
+            color: green;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #198754;
+            color: white;
+            padding: 12px 18px;
+            margin: 5px;
+            border-radius: 6px;
+            text-decoration: none;
+        }
+
+        .buttons {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🛒 Akshay Food Delivery - Your Cart</h1>
+
+    {% if items %}
+
+        {% for item in items %}
+
+        <div class="cart-item">
+            {% if item.food.image_url %}
+    <img src="{{ item.food.image_url }}"
+         alt="{{ item.food.name }}"
+         class="food-image">
+{% else %}
+    <p>Image not added</p>
+{% endif %}
+            
+
+            <div class="details">
+                <h2>{{ item.food.name }}</h2>
+                <p>{{ item.food.description }}</p>
+                <p>Quantity: {{ item.quantity }}</p>
+                <p>Price: ₹{{ item.food.price }}</p>
+                <p><strong>Subtotal: ₹{{ item.subtotal }}</strong></p>
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+        <div class="total">
+            Total Amount: ₹{{ total }}
+        </div>
+
+        <div class="buttons">
+            <a class="btn" href="{% url 'checkout' %}">
+                Proceed to Checkout
+            </a>
+
+            <a class="btn" href="{% url 'home' %}">
+                Continue Shopping
+            </a>
+        </div>
+
+    {% else %}
+
+        <h2 style="text-align:center;">Your cart is empty!</h2>
+
+        <div class="buttons">
+            <a class="btn" href="{% url 'home' %}">
+                Browse Food Menu
+            </a>
+        </div>
+
+    {% endif %}
+
+</body>
+</html>
